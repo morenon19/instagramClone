@@ -12,6 +12,8 @@ export class CadastroComponent implements OnInit {
 
   @Output() public exibirPainel: EventEmitter<string> = new EventEmitter()
 
+  public message: string
+
   public formulario: FormGroup = new FormGroup({
     'email': new FormControl(null),
     'nome_completo': new FormControl(null),
@@ -37,9 +39,14 @@ export class CadastroComponent implements OnInit {
     )
     this.autenticacao.cadastrarUsuario(usuario)
       .then(()=>{
-        alert('Cliente cadastrado com sucesso!')
-        this.exibirPainelLogin()
+        this.message = this.autenticacao.getCadMessage()
+        setTimeout(() => {
+          if(this.message===undefined){
+            alert('Cliente cadastrado com sucesso!')
+            this.exibirPainelLogin()
+          }  
+          this.autenticacao.clearMessages()
+        }, 500);
       })
-    
   }
 }

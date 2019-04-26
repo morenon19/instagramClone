@@ -34,6 +34,7 @@
       <button type="submit" class="btn btn-primary btn-sm btn-block">Cadastre-se</button>
     </form>
     <hr />
+    <p *ngIf="message!==undefined" class="small text-danger text-center">{{message}}</p>
 
     <p class="small text-center">Ao cadastrar-se, você concorda com nossos <b>Termos</b> e <b>Política de Privacidade</b>.</p>
 

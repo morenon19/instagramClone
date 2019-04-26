@@ -21,7 +21,7 @@
     </form>
     <hr />
 
-    <p class="small text-danger text-center">O nome de usuário inserido não pertence a uma conta. Verifique seu nome de usuário e tente novamente.</p>
+    <p *ngIf="message!==undefined" class="small text-danger text-center">{{message}}</p>
 
   </div>
 </div>

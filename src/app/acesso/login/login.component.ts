@@ -10,6 +10,8 @@ import { Autenticacao } from '../../autenticacao.service'
 })
 export class LoginComponent implements OnInit {
 
+  public message: string
+
   public formulario: FormGroup = new FormGroup({
     'email': new FormControl(null),
     'senha': new FormControl(null)
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
       this.formulario.value.email,
       this.formulario.value.senha
     )
+    setTimeout(()=>this.message = this.autenticacao.getLoginMessage(), 500)
   }
 
 }

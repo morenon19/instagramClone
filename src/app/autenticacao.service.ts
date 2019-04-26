@@ -6,6 +6,8 @@ import { Router } from '@angular/router'
 @Injectable()
 export class Autenticacao {
 
+    public loginMessage: string
+    public cadMessage: string
     private token_id: string;
 
     constructor(private router: Router){}
@@ -21,7 +23,10 @@ export class Autenticacao {
                 firebase.database().ref(`usuario_detalhe/${btoa(usuario.email)}`)
                     .set(usuario)
             })
-            .catch((error: Error) => console.log(error))
+            .catch((error: Error)=>{
+                this.cadMessage=error.message
+                console.log(error)
+            })
     }
 
     public autenticar(email: string, senha: string): void{
@@ -31,14 +36,10 @@ export class Autenticacao {
                     .then((idToken: string)=> {
                         this.token_id = idToken
                         localStorage.setItem('idToken', idToken)
-                        console.log('Token_Id-1', this.token_id)
                         this.router.navigate(['/home'])
                     })
-                console.log('Token_Id-2', this.token_id)
             })
-            .catch((error: Error)=>console.log(error))
-
-        console.log('token_Id-3', this.token_id)
+            .catch((error: Error)=>this.loginMessage=error.message)
     }
 
     public autenticado(): boolean{
@@ -61,5 +62,17 @@ export class Autenticacao {
                 this.token_id = undefined
                 this.router.navigate(['/'])
             })
+    }
+
+    public getLoginMessage():string{
+        console.log('Login:', this.loginMessage)
+        return this.loginMessage
+    }
+    public getCadMessage(): string{
+        return this.cadMessage
+    }
+    public clearMessages(): void{
+        this.cadMessage=undefined
+        this.loginMessage=undefined
     }
 } 
