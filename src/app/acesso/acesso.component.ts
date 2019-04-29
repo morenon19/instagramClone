@@ -29,6 +29,19 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
           style({offset: 0.92, opacity: 1, transform: 'translateY(-10px)'}),
           style({offset: 0.94, opacity: 1, transform: 'translateY(10px)'})
         ]))
+      ]),
+      transition('criado => errado', [
+        animate('600ms 0ms ease-out', keyframes([
+          style({offset: 0.10, opacity: 1, transform: 'translateY(-10px)'}),
+          style({offset: 0.20, opacity: 1, transform: 'translateY(10px)'}),
+          style({offset: 0.38, opacity: 1, transform: 'translateY(-10px)'}),
+          style({offset: 0.48, opacity: 1, transform: 'translateY(10px)'}),
+          style({offset: 0.58, opacity: 1, transform: 'translateY(-10px)'}),
+          style({offset: 0.68, opacity: 1, transform: 'translateY(10px)'}),
+          style({offset: 0.78, opacity: 1, transform: 'translateY(-10px)'}),
+          style({offset: 0.88, opacity: 1, transform: 'translateY(10px)'}),
+          style({offset: 0.98, opacity: 1, transform: 'translateY(-10px)'})
+        ]))
       ])
     ])
   ]
@@ -49,11 +62,19 @@ export class AcessoComponent implements OnInit {
     this.cadastro = event === 'cadastro' ? true:false
   }
 
-  public comecoAnimacao(): void{
-    console.log('Começo da animação')
-  }
-  public finalAnimacao(): void{
-    console.log('fim da animação')
+  //Chamadas de funções no inicio e/ou final da animação:
+    //No template:    (@animacao-painel.start)="comecoAnimacao()" (@animacao-painel.done)="finalAnimacao()"
+
+  // public comecoAnimacao(): void{
+  //   console.log('Começo da animação')
+  // }
+  // public finalAnimacao(): void{
+  //   console.log('fim da animação')
+  // }
+
+  public animar(event: string): void{
+    this.estado=event
+    setTimeout(()=>this.estado='criado', 1000)
   }
  
 }
