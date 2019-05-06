@@ -47,33 +47,43 @@ export class Bd {
                     let publicacoes: Publicacao[] = []
 
                     snapshot.forEach((childSnapshot: firebase.database.DataSnapshot) => {
+                        let publicacao = new Publicacao(
+                            childSnapshot.key,
+                            '',
+                            email,
+                            childSnapshot.val().titulo,
+                            ''
+                        )
+                        console.log('pub',publicacao)
+                        publicacoes.push(publicacao)
+                        
+                        // let publicacao = childSnapshot.val()
+                        // publicacao.key = childSnapshot.key
+                        // publicacoes.push(publicacao)
+                    })
+                    return publicacoes.reverse()
+                })
+                .then((publicacoes: Publicacao[]) => {
+                    publicacoes.forEach((publicacao: Publicacao) => {
                         //consultar URL da imagem
                         firebase.storage().ref()
-                            .child(`imagens/${childSnapshot.key}`)
+                            .child(`imagens/${publicacao.key}`)
                             .getDownloadURL()
                             .then((url: string) => {
                                 //Consultar nome de usuário
                                 firebase.database().ref(`usuario_detalhe/${btoa(email)}`)
                                     .once('value')
                                     .then((snapshot: firebase.database.DataSnapshot) => {
+                                        
+                                        publicacao.nome_usuario = snapshot.val().nome_usuario
+                                        publicacao.imagem = url
+                                        console.log('pub ok', publicacao)
 
-                                        let publicacao: Publicacao = new Publicacao(
-                                            snapshot.val().nome_usuario,
-                                            email,
-                                            childSnapshot.val().titulo,
-                                            url
-                                        )
-
-                                        publicacoes.push(publicacao)
                                     })
                             })
                     })
-                    
                     resolve(publicacoes)
                 })
         })
-
-
     }
-
 }

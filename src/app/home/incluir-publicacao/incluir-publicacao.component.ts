@@ -66,7 +66,7 @@ export class IncluirPublicacaoComponent implements OnInit {
   }
 
   public preparaImagemUpload(evento: Event): void {
-    this.publicacao = new Publicacao("","", "", (<HTMLInputElement>evento.target).files)
+    this.publicacao = new Publicacao("","","", "", (<HTMLInputElement>evento.target).files)
   }
 }
 

@@ -20,17 +20,12 @@ export class PublicacoesComponent implements OnInit {
 
       this.attTimeline()
     })
-
-    // setTimeout(()=>{
-    //   this.attTimeline()
-    // }, 1000)
   }
 
   public attTimeline():void {
     this.bd.getPublicacoes(this.email)
       .then((publicacoes: Publicacao[])=>{
         this.publicacoes = publicacoes
-        console.log(this.publicacoes)
       })
       .catch((error: any)=>{
         console.log(error)
