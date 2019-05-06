@@ -66,7 +66,6 @@ export class Autenticacao {
     }
 
     public getLoginMessage():string{
-        console.log('Login:', this.loginMessage)
         return this.loginMessage
     }
     public getCadMessage(): string{
